@@ -4,11 +4,15 @@ const TWITCH_API_URL = "https://api.twitch.tv/kraken/streams/kamet0";
 // Intervalle en minutes entre chaque vérification
 const CHECK_INTERVAL = 5;
 
+// Constantes pour l'authentification auprès de l'API Twitch
+const TWITCH_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+const TWITCH_CLIENT_ID = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+
 // Fonction pour envoyer une notification
 function sendNotification() {
-// Titre et contenu de la notification
-var title = "Kamet0 est en direct !";
-var body = "Cliquez ici pour accéder au stream.";
+  // Titre et contenu de la notification
+  var title = "Kamet0 est en direct !";
+  var body = "Cliquez ici pour accéder au stream.";
 
 // Options de la notification
 var options = {
