@@ -30,25 +30,34 @@ chrome.tabs.create({ url: "https://www.twitch.tv/kamet0" });
 
 // Fonction principale pour vérifier si le streamer est en direct
 function checkLive() {
-// Options de la requête vers l'API Twitch
-var options = {
-    headers: new Headers()
+    // Options de la requête vers l'API Twitch
+    var options = {
+      headers: new Headers()
     };
-    options.headers.append("Access-Control-Allow-Origin", "*"); // <-- ajout de l'en-tête 
-// Récupération des données du streamer à partir de l'API Twitch
-fetch(TWITCH_API_URL, options)
-.then(response => response.json())
-.then(data => {
-// Vérification si le streamer est en direct
-if (data.stream) {
-sendNotification();
-}
-});
-}
-
-// Exécution de la fonction principale toutes les CHECK_INTERVAL minutes
-setInterval(checkLive, CHECK_INTERVAL * 60 * 1000);
-
-
-
-
+  
+    // Ajout de l'en-tête d'autorisation à la requête
+    options.headers.append("Authorization", "Bearer " + TWITCH_TOKEN);
+    options.headers.append("Client-ID", TWITCH_CLIENT_ID);
+  
+    // Récupération des données du streamer à partir de l'API Twitch
+    fetch(TWITCH_API_URL, options)
+      .then(response => response.json())
+      .then(data => {
+        // Vérification si le streamer est en direct
+        if (data.stream) {
+          sendNotification();
+        // Si le streamer est en direct, changez l'icône en utilisant l'API setIcon()
+        chrome.browserAction.setIcon({
+            path: "kamet0_on.png"
+          });
+        } else {
+          // Si le streamer n'est pas en direct, changez l'icône en utilisant l'API setIcon()
+          chrome.browserAction.setIcon({
+            path: "kamet0_off.png"
+          });
+        }
+      });
+  }
+  
+  // Exécution de la fonction principale toutes les CHECK_INTERVAL minutes
+  setInterval(checkLive, CHECK_INTERVAL * 60 * 1000);
