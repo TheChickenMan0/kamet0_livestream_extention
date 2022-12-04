@@ -54,14 +54,9 @@ function checkLive() {
         chrome.browserAction.setIcon({
             path: "kamet0_on.png"
           });
-        } else {
-          // Si le streamer n'est pas en direct, changez l'icône en utilisant l'API setIcon()
-          chrome.browserAction.setIcon({
-            path: "kamet0_off.png"
-          });
         }
-      });
-  }
-  
-  // Exécution de la fonction principale toutes les CHECK_INTERVAL minutes
-  setInterval(checkLive, CHECK_INTERVAL * 60 * 1000);
+
+// Exécution de la fonction principale toutes les CHECK_INTERVAL minutes
+setInterval(checkLive, CHECK_INTERVAL * 60 * 1000);
+})
+}
